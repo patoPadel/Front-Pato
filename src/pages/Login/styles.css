@@ -1,0 +1,16 @@
+.cont-login-page {
+    justify-content: start;
+}
+.cont-login-clasico-page{
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* responsive */
+@media screen and (max-width: 700px) {
+    .cont-login-clasico-page{
+        width: 95%;
+    }
+}

@@ -1,0 +1,263 @@
+.cont-detalle-prod{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    background-color: rgba(115, 115, 115, 0.925);
+}
+/* estilos prod y carrito */
+.cont-producto-Y-carrito{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+.cont-fila-1{
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* btn fav */
+.cont-fav-prod-detalle{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+}
+.img-prod-detalle{
+    width: 60%;
+    height: 500px;
+    border: 1px solid rgb(213, 213, 213);
+}
+.cont-carrito-fila-1{
+    width: 40%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(213, 213, 213);
+    background-color: rgb(219, 218, 231);
+}
+.info-prod-detalle{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+.nombre-prod-detalle{
+    font-size: 25px;
+    font-weight: 500;
+    margin: 0;
+}
+.precio-prod-detalle{
+    font-size: 30px;
+    font-weight: 300;
+    margin-top: 20px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.cont-retira-prod-detalle,
+.cont-envio-prod-detalle,
+.cont-medios-pago-prod-detalle{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.retira-prod-detalle,
+.envio-prod-detalle,
+.medios-pago-prod-detalle{
+    margin-left: 5px;
+}
+/* botones */
+.btns-prod-detalle{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.btn-comprar-detalle,
+.btn-agrega-carrito-detalle{
+    width: 80%;
+    height: 40px;
+    background-color: var(--color-azul);
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.btn-agrega-carrito-detalle{
+    margin-bottom: 20px;
+    border: 1px solid var(--color-azul);
+    background-color: transparent;
+}
+/* FILA-2 */
+.cont-fila-2{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+.desc-prod-detalle{
+    width: 60%;
+}
+.titulo-descrip{
+    text-align: center;
+}
+.cont-medios-pago-politicas{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.con-medios-de-pago{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(213, 213, 213);
+}
+.cont-politicas-cambio-devolucion{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(213, 213, 213);
+}
+.cont-politicas-cambio-devolucion > p {
+    width: 80%;
+    margin: 0;
+    text-align: start;
+}
+.link-politicas{
+    text-decoration: none;
+    padding: 10px 0;
+}
+/* fila 3 */
+.cont-fila-3{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(213, 213, 213);
+}
+/* estilos de Te pueden interesar los sgts prods */
+.cont-te-puede-interesar{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    border: 1px solid grey;
+}
+.cont-prods-te-puede-interesar{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+/* cont modal */
+.cont-modal-img-grande{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+}
+/* responsiv */
+@media screen and (max-width: 1200px){
+    .cont-producto-Y-carrito{
+        width: 90%;
+    }
+}
+@media screen and (max-width: 1100px){
+    .cont-detalle-prod{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .cont-producto-Y-carrito{
+        width: 80%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .cont-fila-1{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    /* fila-1 */
+    .cont-fav-prod-detalle{
+        margin-top: 0px;
+    }
+    .img-prod-detalle{
+        width: 80%;
+        height: 500px;
+        border: 1px solid grey;
+    }
+    .cont-carrito-fila-1{
+        width: 80%;
+        height: auto;
+    }
+    /* FILA-2 */
+    .cont-fila-2{
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+    .desc-prod-detalle,
+    .cont-medios-pago-politicas{
+        width: 80%;
+    }
+}
+@media screen and (max-width: 650px){
+    .cont-producto-Y-carrito{
+        width: 90%;
+    }
+    .img-prod-detalle{
+        width: 100%;
+        height: 400px;
+        border: 1px solid grey;
+    }
+    .cont-carrito-fila-1,
+    .desc-prod-detalle,
+    .cont-medios-pago-politicas{
+        width: 100%;
+        height: auto;
+    }
+    .img-medios-de-pago{
+        width: 100%;
+    }
+    .link-politicas{
+        margin-left: 5px;
+    }
+    .titulo-otros-prods,
+    .titulo-descrip{
+        text-align: center;
+    }
+}
