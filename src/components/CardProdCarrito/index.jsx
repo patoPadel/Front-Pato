@@ -13,12 +13,11 @@ function CardProdCarrito({clienteId, productoId, nombre, precio, imagenes, stock
             <div className='cont-info-card-prod-carrito'>
                 <p className='nombre-pala-prod-carrito'>{nombre}</p>
                 <p className='precio-pala-prod-carrito'>${precio}</p>
-                <div style={{ width: '20%', height: '20px', display: 'flex', justifyContent:'start', alignItems: 'center'}}>
-                    <Stock stock={stock} />
+                <div className='cont-stock-card-prod-carrito'>
+                    <Stock clienteId={clienteId} productoId={productoId} stock={stock} />
                 </div>
-                <p className='stock-pala-prod-carrito'>Stock: {stock}</p>
             </div>
-            <div>
+            <div className='cont-btn-elimina-prod-carrito'>
                 <BotonEliminaProdCarrito clienteId={clienteId} productoId={productoId} />
             </div>
         </div>

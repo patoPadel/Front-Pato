@@ -1,6 +1,6 @@
 .cont-miCarrito{
     width: 100%;
-    height: auto;
+    height: 100%;
     position: absolute;
     top: 0;
     display: flex;
@@ -50,6 +50,7 @@
 .p.mensaje-prod-sin-stock{
     font-size: 20px;
     color: red;
+    margin: 0;
 }
 /* fila 1 */
 .cont-miCarrito-fila-1{

@@ -1,15 +1,19 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCarrito, getUsuarioById } from '../../redux/actions/actions';
+import { userData } from '../../localStorage';
 import WarningIcon from '@mui/icons-material/Warning';
 import CardProdMiCarrito from '../CardProdMiCarrito' 
 import ResumenCompra from '../ResumenCompra';
-import './styles.css';
 import NavCarrito from '../NavCarrito';
-
+import './styles.css';
 
 function MiCarrito() {
 
+    const cliente = userData();
     const carrito = useSelector(state => state.carrito);
+    const dispatch = useDispatch();
+
 
     //función busca si hay productos sin stock
     const hayProdSinStock = () => {
@@ -26,7 +30,15 @@ function MiCarrito() {
     const handleClickVolver = () => {
         window.history.back();
     }
-    
+
+    useEffect(() => {
+            if (cliente.user.id) {
+                dispatch(getUsuarioById(cliente.user.id));
+                dispatch(getCarrito(cliente.user.id));
+            }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [dispatch]);
+
     return (
         <div className='cont-miCarrito'>
             {/* nav */}

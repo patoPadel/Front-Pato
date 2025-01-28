@@ -50,6 +50,13 @@ export const resetUsuario = () => {
         type: RESET_USER,
     }
 }
+
+//modifica usuario
+export const modificaUsuario = (id, data) => {
+    return async function() { 
+        await axios.put(`${URL}/usuario/modifica/${id}`, data);
+    }
+}
 //-----------------favoritos---------------------
 export const getFavoritos = (id) => {
     return async function(dispatch) { 
@@ -120,7 +127,7 @@ export const getProductos = (limit, offset, categoria, marca, enPromo, precioMin
         }
         //enPromo
         if(enPromo) {
-            queryParams += `&oferta=${enPromo}`;
+            queryParams += `&enPromo=${enPromo}`;
         }
         //precioMin
         if(precioMin) {

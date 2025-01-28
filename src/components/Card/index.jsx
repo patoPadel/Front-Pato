@@ -1,40 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import BotonFavorito from '../BotonFavorito';
+import BotonAgregaalCarrito from '../BotonAgregaAlCarrito';
 import './styles.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { agregarAlCarrito } from '../../redux/actions/actions';
-import Swal from 'sweetalert2';
 
-function Card({id, nombre, precio, imagenes, agotado, enPromo, porcentajeDescuento}) {
+function Card({id, nombre, precio, imagenes, agotado, enPromo, porcentajeDescuento, stock}) {
 
-    const dataUsuario = useSelector(state => state.dataUsuario);
     const [showDetail, setShowDetail] = React.useState(false); //estado para hover de la imgn - mostrando detalle
-    const dispatch = useDispatch();
-
-    const onClickAgregarAlCarrito = () => {
-        if(!dataUsuario?._id){
-            Swal.fire({
-                icon: 'warning',
-                title: 'Oops...',
-                text: 'Debes estar logueado para agregar productos al carrito',
-            });
-            //redirijo a login
-            setTimeout(() => {
-                window.location.href = '/login';
-            }, 2000);
-        }else{
-            const cantidad = 1;
-            const clienteId = dataUsuario._id;
-            dispatch(agregarAlCarrito(clienteId, id, cantidad));
-            Swal.fire({
-                icon: 'success',
-                title: 'Producto agregado al carrito',
-                showConfirmButton: false,
-                timer: 1500
-            });
-        }
-    };
 
     return (
         <div className='cont-card'>
@@ -42,6 +14,8 @@ function Card({id, nombre, precio, imagenes, agotado, enPromo, porcentajeDescuen
             <div className='cont-btn-fav-card'>
                 <BotonFavorito id={id} />
             </div>
+            {/* descuento */}
+            {enPromo && <p className='descuento-pala'>-{porcentajeDescuento}%</p>}
             {/* carrusel de imagenes */}
             <NavLink to={`/detalleProd/${id}`} className='navLink-car'>
                 <div
@@ -60,21 +34,27 @@ function Card({id, nombre, precio, imagenes, agotado, enPromo, porcentajeDescuen
                 </div>
             </NavLink>
             {
-                agotado && <p className='prod-agotado'>Agotado</p>
+                stock === 0 && <p className='prod-agotado'>Agotado</p>
             }
             {/* data */}
             <div className='cont-info-card'>
                 <p className='nombre-pala'>{nombre}</p>
                 <div className='cont-precio-desc'>
-                    <p className='precio-pala'>${precio}</p>
-                    {enPromo && <p className='descuento-pala'>Desc. -{porcentajeDescuento}%</p>}
+                    {
+                        enPromo ?
+                        (
+                            <>
+                                <p className='precio-pala-tachado'>${precio}</p>
+                                <p className='precio-pala-promo'>${precio - (precio * porcentajeDescuento / 100)}</p>
+                            </>
+                        ) :
+                        (
+                            <p className='precio-pala'>${precio}</p>
+                        )
+                    }
                 </div>
-                <button 
-                    className='btn-agrega-carrito' 
-                    onClick={() => {onClickAgregarAlCarrito()}}
-                >
-                    Agregar al carrito
-                </button>
+                {/* botón agrega al carrito */}
+                <BotonAgregaalCarrito id={id} stock={stock}/>
             </div>
         </div>
     )
