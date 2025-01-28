@@ -15,7 +15,7 @@ import FavoritosPage from './pages/Favoritos';
 import MiCarritoPage from './pages/MiCarritoPage';
 import FormaEnvio from './pages/FormaEnvio';
 import ComoPagarPage from './pages/ComoPagar';
-import InformacionContactoPage from './pages/InformacionContactoPage';
+import InformacionContactoPage from './pages/InformacionContactoPage'
 import CheOutML from './components/CheckOutML';
 import './App.css';
 
