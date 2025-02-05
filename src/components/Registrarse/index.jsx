@@ -1,43 +1,61 @@
 import React, { useState } from 'react';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useDispatch } from 'react-redux';
 import { registrarse } from '../../redux/actions/actions';
+import FormDatosUsuario from '../FormDatosUsuario';
+import LoginGoogle from '../LoginGoogle';
 import Swal from 'sweetalert2';
 import './styles.css';
 
-
-function Registrarse({operacion}) {
+function Registrarse() {
 
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
-    const [email, setemail] = useState('');
-    const [contraseña, setContraseña] = useState('');
+    const [dni, setDni] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
 
+    //función quito los errores
+    const quitarError = (e) => {
+        const newError = { ...error };
+        delete newError[e.target.name];
+        setError(newError);
+    }
+
     const onChangeNombre = (e) => {
         setNombre(e.target.value);
+        quitarError(e);
     }
     const onChangeApellido = (e) => {
         setApellido(e.target.value);
+        quitarError(e);
     }
-    const onChangeemail = (e) => {
-        setemail(e.target.value);
+    const onChangeDni = (e) => {
+        setDni(e.target.value);
+        quitarError(e);
     }
-    const onChangeContraseña = (e) => {
-        setContraseña(e.target.value);
+    const onChangeEmail = (e) => {
+        setEmail(e.target.value);
+        quitarError(e);
+    }
+    const onChangePassword = (e) => {
+        setPassword(e.target.value);
+        quitarError(e);
     }
     const onChangeTelefono = (e) => {
         setTelefono(e.target.value);
+        quitarError(e);
     }
     const onChangeDireccion = (e) => {
         setDireccion(e.target.value);
+        quitarError(e);
     }
-    //funcion para ver la contraseña
+    //funcion para ver la password
     const onClickVerContraseña = () => {
-        const inputContraseña = document.querySelector('.input-contraseña');
+        const inputContraseña = document.querySelector('.input-password');
         if(inputContraseña.type === 'password') { //le cambio el tipo de input
             inputContraseña.type = 'text';
         }else {
@@ -54,13 +72,16 @@ function Registrarse({operacion}) {
         if(!apellido) {
             newError.apellido = 'El campo apellido es obligatorio';
         }
+        if(!dni) {
+            newError.dni = 'El campo dni es obligatorio';
+        }
         if(!email) {
             newError.email = 'El campo email es obligatorio';
         }else if (!/\S+@\S+\.\S+/.test(email)) {
             newError.email = 'El email no es válido';
         }
-        if(!contraseña) {
-            newError.contraseña = 'El campo contraseña es obligatorio';
+        if(!password) {
+            newError.password = 'El campo password es obligatorio';
         }
         if(!telefono) {
             newError.telefono = 'El campo telefono es obligatorio';
@@ -75,28 +96,39 @@ function Registrarse({operacion}) {
         if(Object.keys(newError).length) return true;
         return false;
     }
-
+    //limpio los campos
+    const limpiarCampos = () => {
+        setNombre('');
+        setApellido('');
+        setDni('');
+        setEmail('');
+        setPassword('');
+        setTelefono('');
+        setDireccion('');
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validar()) {
             const data = {
                 nombre,
                 apellido,
+                dni,
                 email,
-                contraseña,
+                password,
                 telefono,
                 direccion,
                 isAdmin: false
             };
             dispatch(registrarse(data))
                 .then((response) => {
-                    if (response?.data?.msg === 'success') {
+                    if (response?.msg === 'success') {
                         Swal.fire({
                             icon: 'success',
                             title: 'Registrado correctamente',
-                            showConfirmButton: false,
                             timer: 1500,
                         });
+                        limpiarCampos();
+                        window.location.href = '/login';
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -117,94 +149,33 @@ function Registrarse({operacion}) {
                 });
         }
     }
-
-
+    
     return (
-        <div className='cont-registrarse'>
-            <form onSubmit={handleSubmit} className='form-registrarse'>
-                <div className='cont-inputs'>
-                    <div className='cont-email'>
-                        <label className='label-input'>Nombre</label>
-                        <input 
-                            type="text" 
-                            value={nombre} 
-                            onChange={(e) => {onChangeNombre(e)}} 
-                            className='input-nombre'
-                        />
-                        {error?.nombre && <p className='error'>{error.nombre}</p>}
-                    </div>
-                    <div className='cont-email'>
-                        <label className='label-input'>Apellido</label>
-                        <input 
-                            type="text" 
-                            value={apellido} 
-                            onChange={(e) => {onChangeApellido(e)}} 
-                            className='input-apellido'
-                        />
-                        {error?.apellido && <p className='error'>{error.apellido}</p>}
-                    </div>
-                </div>
-
-                <div className='cont-inputs'>
-                    <div className='cont-email'>
-                        <label className='label-input'>email</label>
-                        <input 
-                            type="email"
-                            value={email}
-                            onChange={(e) => {onChangeemail(e)}}
-                            className='input-email'
-                        />
-                        {error?.email && <p className='error'>{error.email}</p>}
-                    </div>
-                    <div className='cont-contraseña'>
-                        <label className='label-input'>Contraseña</label>
-                        <div className='cont-pass-viewPass'>
-                            <input
-                                type="password"
-                                value={contraseña}
-                                onChange={(e) => { onChangeContraseña(e) }}
-                                className='input-contraseña'
-                            />
-                            <button
-                                type='button'
-                                className='btn-viewPass'
-                                onClick={() => { onClickVerContraseña() }}
-                            >
-                                <VisibilityIcon />
-                            </button>
-                        </div>
-                        {error?.contraseña && <p className='error'>{error.contraseña}</p>}
-                    </div>
-                </div>
-
-                <div className='cont-inputs'>
-                    <div className='cont-telefono'>
-                        <label className='label-input'>Telefono</label>
-                        <input 
-                            type="number"
-                            value={telefono}
-                            onChange={(e) => {onChangeTelefono(e)}}
-                            className='input-telefono'
-                        />
-                        {error?.telefono && <p className='error'>{error.telefono}</p>}
-                    </div>
-                    <div className='cont-direccion'>
-                        <label className='label-input'>Dirección</label>
-                        <input 
-                            type="text" 
-                            value={direccion}
-                            onChange={(e) => {onChangeDireccion(e)}}
-                            className='input-direccion'
-                        />
-                        {error?.direccion && <p className='error'>{error.direccion}</p>}
-                    </div>
-                </div>
-
-                <div className='cont-btn-registrarse'>
-                    <button type="submit" className='btn-registrarse'>Registrarse</button>
-                </div>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit} className='cont-registrarse'>
+            <FormDatosUsuario 
+                nombre={nombre}
+                apellido={apellido}
+                dni={dni}
+                email={email}
+                password={password}
+                telefono={telefono}
+                direccion={direccion}
+                onChangeNombre={onChangeNombre}
+                onChangeApellido={onChangeApellido}
+                onChangeDni={onChangeDni}
+                onChangeEmail={onChangeEmail}
+                onChangePassword={onChangePassword}
+                onChangeTelefono={onChangeTelefono}
+                onChangeDireccion={onChangeDireccion}
+                error={error}
+                handleSubmit={handleSubmit}
+                onClickVerContraseña={onClickVerContraseña}
+            />
+            <div className='cont-btn-registrarse'>
+                <button type="submit" className='btn-registrarse'>Registrarse</button>
+                <LoginGoogle />
+            </div>
+        </form>
     )
 }
 

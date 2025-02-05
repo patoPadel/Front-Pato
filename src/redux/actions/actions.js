@@ -4,6 +4,7 @@ import {
     LOADING, GET_PRODUCTOS, GET_PRODUCTO_BY_ID, RESET_PRODUCTO, GET_PRODS_RANGO_PRECIO, 
     OPEN_CLOSE_MODAL, LOGIN, GET_FAVORITOS, GET_USER, RESET_USER, GET_PRODUTOS_OFERTA,
     GET_CARRITO, GET_PRODUCTO_POR_NOMBRE,
+    GET_USER_BY_DNI,
 } from "./actionTypes";
 
 //-------login-----------------------------
@@ -22,11 +23,25 @@ export const resetLogin = () => {
     }
 }
 
+//login google
+export const loginGoogle = (credential) => {
+    return async function(dispatch) {
+        try {
+            const resp = await axios.post(`${URL}/auth/login/google`, { tokenId: credential });
+            //guardo data en localstorage
+            localStorage.setItem('dataUser', JSON.stringify(resp.data));
+            dispatch({type: LOGIN, payload: resp.data});
+        } catch (error) {
+            console.error("Error logging in", error.response?.data || error.message);
+        }
+    }
+}
 //-------usuario-----------------------------
-//registrarse
+//-------registrarse-------
 export const registrarse = (data) => {
     return async function() { 
-        await axios.post(`${URL}/usuario/registrarse`, data);        
+        const resp = await axios.post(`${URL}/registrarse`, data);
+        return resp.data;
     }
 }
 //confirma email
@@ -39,8 +54,18 @@ export const confirmarEmail = (email) => {
 //trae usuario por id
 export const getUsuarioById = (id) => {
     return async function(dispatch) {  
-        const resp = await axios.get(`${URL}/usuario/${id}`);
+        const resp = await axios.get(`${URL}/usuario/${id}`); 
+        localStorage.setItem('dataUser', JSON.stringify(resp.data));
         dispatch({type: GET_USER, payload: resp.data});
+    }
+}
+
+//trae usuario por DNI
+export const getUsuarioByDNI = (dni) => { 
+    return async function(dispatch){
+        const resp = await axios.get(`${URL}/usuario/dni/${dni}`);
+        dispatch({type: GET_USER_BY_DNI, payload: resp.data});
+        return resp.data;
     }
 }
 
@@ -52,11 +77,13 @@ export const resetUsuario = () => {
 }
 
 //modifica usuario
-export const modificaUsuario = (id, data) => {
-    return async function() { 
-        await axios.put(`${URL}/usuario/modifica/${id}`, data);
+export const modificaUsuario = (id, data) => { console.log('id', id);
+    return async function() { console.log('data', data);
+        const resp = await axios.put(`${URL}/usuario/modifica/${id}`, data);
+        return resp.data;
     }
 }
+
 //-----------------favoritos---------------------
 export const getFavoritos = (id) => {
     return async function(dispatch) { 
