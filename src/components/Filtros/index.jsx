@@ -15,6 +15,7 @@ function Filtros({
     precioMax,
     setPrecioMax,
     setPaginaActual,
+    sinCategoria
 }) {
 
     
@@ -53,7 +54,7 @@ function Filtros({
             </div>
             {/* por marca */}
             <div className='cont-filtro-marca'>
-                <h2 className='titulo-filtro'>Marca</h2>
+                <p className='titulo-filtro-marcas'>Marcas</p>
                 <div className='cont-map-marca'>
                 {
                     context.marcas.map((m) => (
@@ -73,7 +74,7 @@ function Filtros({
                 </div>
             </div>
             {/* por categoría */}
-            <div className='cont-filtro-categoria'>
+            <div className={sinCategoria ? 'displeyOFF' : 'cont-filtro-categoria'}>
                 <h2 className='titulo-filtro'>Categoría</h2>
                 <div className='cont-map-marca'>
                 {
@@ -109,7 +110,7 @@ function Filtros({
             </div>
             {/* por rango precio */}
             <div className='cont-filtro-rango-precio'>
-                <h2 className='titulo-filtro'>Rango de precio</h2>
+                <h2 className='titulo-filtro-rango-precio'>Rango de precio</h2>
                 <FiltroRangoPrecio 
                     precioMin={precioMin} 
                     setPrecioMin={setPrecioMin} 
